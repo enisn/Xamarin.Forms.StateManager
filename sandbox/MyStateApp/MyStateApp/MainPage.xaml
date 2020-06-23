@@ -3,14 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:MyStateApp" xmlns:controls="clr-namespace:Xamarin.Forms.StateManager.Controls;assembly=Xamarin.Forms.StateManager"
              mc:Ignorable="d"
              x:Class="MyStateApp.MainPage">
+    <ContentPage.BindingContext>
+        <local:MainViewModel />
+    </ContentPage.BindingContext>
 
-    <StackLayout>
+    <StackLayout VerticalOptions="CenterAndExpand" Padding="25">
+        <Button Text="Change State" Command="{Binding ChangeStateCommand}"/>
         <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <controls:StateManager State="{Binding MyState}">
+
+            <controls:StateTemplate State="Open">
+                <DataTemplate>
+                    <Frame BackgroundColor="Green" CornerRadius="50" HeightRequest="100" WidthRequest="100">
+                        <Label Text="Open" TextColor="White" />
+                    </Frame>
+                </DataTemplate>
+            </controls:StateTemplate>
+
+            <controls:StateTemplate State="Closed">
+                <DataTemplate>
+                    <Frame BackgroundColor="Red" CornerRadius="50" HeightRequest="100" WidthRequest="100">
+                        <Label Text="Closed :(" TextColor="White" />
+                    </Frame>
+                </DataTemplate>
+            </controls:StateTemplate>
+        </controls:StateManager>
     </StackLayout>
 
 </ContentPage>

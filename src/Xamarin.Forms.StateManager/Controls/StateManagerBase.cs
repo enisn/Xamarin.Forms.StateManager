@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace Xamarin.Forms.StateManager.Controls
 {
+    [ContentProperty(nameof(States))]
     public class StateManagerBase<T> : Grid
     {
         public StateManagerBase()
@@ -15,7 +16,8 @@ namespace Xamarin.Forms.StateManager.Controls
             this.OnCurrentStateChanged += (_, state) => UpdateView(state);
         }
 
-        public IList<StateTemplateBase<T>> States { get => (IList<StateTemplateBase<T>>)GetValue(StatesProperty); set => SetValue(StatesProperty, value); }
+        //public IList<StateTemplateBase<T>> States { get => (IList<StateTemplateBase<T>>)GetValue(StatesProperty); set => SetValue(StatesProperty, value); }
+        public IEnumerable<StateTemplateBase<T>> States { get => (IEnumerable<StateTemplateBase<T>>)GetValue(StatesProperty); set => SetValue(StatesProperty, value); }
         public T State { get => (T)GetValue(StateProperty); set => SetValue(StateProperty, value); }
 
         public event EventHandler<IList<StateTemplateBase<T>>> OnStatesChanged;
@@ -43,9 +45,14 @@ namespace Xamarin.Forms.StateManager.Controls
 
         public void UpdateView(T state)
         {
-            var currentState = this.States.FirstOrDefault(_ => state.Equals(state));
+            if (state == null || state.Equals(default(T)))
+            {
+                return;
+            }
 
-            var view = currentState.CreateContent() as View;
+            var currentState = this.States.FirstOrDefault(_ => state.Equals(state)) ?? throw new InvalidOperationException($"The state '{state} couldn't be found in States collection'");
+
+            var view = currentState.DataTemplate.CreateContent() as View;
             switch (currentState.PresentationType)
             {
                 case Primitives.PresentationType.Replace:
@@ -63,12 +70,12 @@ namespace Xamarin.Forms.StateManager.Controls
 
         private void ValidateStates()
         {
-            var duplicated = this.States.GroupBy(g => g.State).FirstOrDefault(a => a.Count() > 1);
-            if (duplicated != null)
-                throw new InvalidOperationException($"The state '{duplicated.Key}' is duplicated in StateManager");
+            //var duplicated = this.States.GroupBy(g => g.State).FirstOrDefault(a => a.Count() > 1);
+            //if (duplicated != null)
+            //    throw new InvalidOperationException($"The state '{duplicated.Key}' is duplicated in StateManager");
         }
 
-        public static readonly BindableProperty StatesProperty = BindableProperty.Create(nameof(States), typeof(IList<StateTemplateBase<T>>), typeof(StateManagerBase<T>), new List<StateTemplateBase<T>>(), propertyChanged: (bo, ov, nv) => (bo as StateManagerBase<T>).OnStatesChanged?.Invoke(bo, nv as IList<StateTemplateBase<T>>));
+        public static readonly BindableProperty StatesProperty = BindableProperty.Create(nameof(States), typeof(IEnumerable<StateTemplateBase<T>>), typeof(StateManagerBase<T>), new List<StateTemplateBase<T>>(), propertyChanged: (bo, ov, nv) => (bo as StateManagerBase<T>).OnStatesChanged?.Invoke(bo, nv as IList<StateTemplateBase<T>>));
         public static readonly BindableProperty StateProperty = BindableProperty.Create(nameof(State), typeof(T), typeof(StateManagerBase<T>), default(T), propertyChanged: (bo, ov, nv) => (bo as StateManagerBase<T>).OnCurrentStateChanged?.Invoke(bo, (T) nv));
     }
 }

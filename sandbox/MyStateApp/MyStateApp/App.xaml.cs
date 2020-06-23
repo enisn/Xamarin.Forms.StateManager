@@ -10,6 +10,7 @@ namespace MyStateApp
         {
             InitializeComponent();
 
+
             MainPage = new MainPage();
         }
 
