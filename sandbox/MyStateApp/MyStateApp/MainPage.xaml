@@ -5,32 +5,40 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:MyStateApp" xmlns:controls="clr-namespace:Xamarin.Forms.StateManager.Controls;assembly=Xamarin.Forms.StateManager"
              mc:Ignorable="d"
+             BackgroundColor="WhiteSmoke"
              x:Class="MyStateApp.MainPage">
     <ContentPage.BindingContext>
         <local:MainViewModel />
     </ContentPage.BindingContext>
 
     <StackLayout VerticalOptions="CenterAndExpand" Padding="25">
-        <Button Text="Change State" Command="{Binding ChangeStateCommand}"/>
+        <Button Text="Reload" Command="{Binding LoadCommand}" HorizontalOptions="Center" Margin="50"/>
         <!-- Place new controls here -->
-        <controls:StateManager State="{Binding MyState}">
+        <Frame CornerRadius="20" HasShadow="True">
+            <controls:StateManager State="{Binding CurrentState}">
 
-            <controls:StateTemplate State="Open">
-                <DataTemplate>
-                    <Frame BackgroundColor="Green" CornerRadius="50" HeightRequest="100" WidthRequest="100">
-                        <Label Text="Open" TextColor="White" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
-                    </Frame>
-                </DataTemplate>
-            </controls:StateTemplate>
+                <controls:StateTemplate State="Loading">
+                    <DataTemplate>
+                        <ActivityIndicator IsRunning="True"/>
+                    </DataTemplate>
+                </controls:StateTemplate>
 
-            <controls:StateTemplate State="Closed">
-                <DataTemplate>
-                    <Frame BackgroundColor="Red" CornerRadius="50" HeightRequest="100" WidthRequest="100">
-                        <Label Text="Closed :(" TextColor="White" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-                    </Frame>
-                </DataTemplate>
-            </controls:StateTemplate>
-        </controls:StateManager>
+                <controls:StateTemplate State="Loaded">
+                    <DataTemplate>
+                        <Label Text="{Binding Content}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                    </DataTemplate>
+                </controls:StateTemplate>
+                
+                <controls:StateTemplate State="Failed">
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="Failed to load :(" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                            <Button Text="Retry" Command="{Binding LoadCommand}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:StateTemplate>
+            </controls:StateManager>
+        </Frame>
     </StackLayout>
 
 </ContentPage>
