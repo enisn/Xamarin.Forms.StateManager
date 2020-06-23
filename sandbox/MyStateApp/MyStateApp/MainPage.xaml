@@ -18,7 +18,7 @@
             <controls:StateTemplate State="Open">
                 <DataTemplate>
                     <Frame BackgroundColor="Green" CornerRadius="50" HeightRequest="100" WidthRequest="100">
-                        <Label Text="Open" TextColor="White" />
+                        <Label Text="Open" TextColor="White" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
                     </Frame>
                 </DataTemplate>
             </controls:StateTemplate>
@@ -26,7 +26,7 @@
             <controls:StateTemplate State="Closed">
                 <DataTemplate>
                     <Frame BackgroundColor="Red" CornerRadius="50" HeightRequest="100" WidthRequest="100">
-                        <Label Text="Closed :(" TextColor="White" />
+                        <Label Text="Closed :(" TextColor="White" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
                     </Frame>
                 </DataTemplate>
             </controls:StateTemplate>
