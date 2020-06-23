@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace Xamarin.Forms.StateManager.Controls
 {
@@ -9,6 +10,9 @@ namespace Xamarin.Forms.StateManager.Controls
         public StateManagerBase()
         {
             this.OnStatesChanged += (_, states) => CheckIfStatesIsObservable(states);
+            this.OnStatesChanged += (_, __) => ValidateStates();
+            this.OnStateAdded += (_, __) => ValidateStates();
+            this.OnCurrentStateChanged += (_, state) => UpdateView(state);
         }
 
         public IList<StateTemplateBase<T>> States { get => (IList<StateTemplateBase<T>>)GetValue(StatesProperty); set => SetValue(StatesProperty, value); }
@@ -35,6 +39,33 @@ namespace Xamarin.Forms.StateManager.Controls
                     }
                 };
             }
+        }
+
+        public void UpdateView(T state)
+        {
+            var currentState = this.States.FirstOrDefault(_ => state.Equals(state));
+
+            var view = currentState.CreateContent() as View;
+            switch (currentState.PresentationType)
+            {
+                case Primitives.PresentationType.Replace:
+                    this.Children.Clear();
+                    this.Children.Add(view);
+                    break;
+                case Primitives.PresentationType.Overlay:
+                    for (int i = 1; i < this.Children.Count; i++)
+                        this.Children.RemoveAt(i);
+
+                    this.Children.Add(view);
+                    break;
+            }
+        }
+
+        private void ValidateStates()
+        {
+            var duplicated = this.States.GroupBy(g => g.State).FirstOrDefault(a => a.Count() > 1);
+            if (duplicated != null)
+                throw new InvalidOperationException($"The state '{duplicated.Key}' is duplicated in StateManager");
         }
 
         public static readonly BindableProperty StatesProperty = BindableProperty.Create(nameof(States), typeof(IList<StateTemplateBase<T>>), typeof(StateManagerBase<T>), new List<StateTemplateBase<T>>(), propertyChanged: (bo, ov, nv) => (bo as StateManagerBase<T>).OnStatesChanged?.Invoke(bo, nv as IList<StateTemplateBase<T>>));

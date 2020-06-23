@@ -8,6 +8,5 @@ namespace Xamarin.Forms.StateManager.Controls
 {
     public class StateTemplate : StateTemplateBase<string>
     {
-        
     }
 }
