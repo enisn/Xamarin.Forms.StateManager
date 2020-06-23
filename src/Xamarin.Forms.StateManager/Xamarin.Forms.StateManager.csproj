@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>enisn</Authors>
+    <Description>A simple &amp; light State Manager for Xamarin Forms</Description>
+    <Copyright>enisn - 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/enisn/Xamarin.Forms.StateManager</RepositoryUrl>
+    <PackageReleaseNotes>- Released</PackageReleaseNotes>
+    <PackageTags>Xamarin,Xamarin Forms,State,State Manager,Xamarin Forms State, Loading</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
