@@ -18,25 +18,7 @@ On the situation below, both of component will be initialized at the beginning:
 <Label Text="{Binding MyData}" IsVisible="{Binding IsBusy, Converter={StaticResource BoolInverter}}" />
 ```
 
-But on that situation, all states are defined as **DataTemplate** and they will be initialized when required.
-
-```xml
-<StateManager State="{Binding State}">
-    <StateTemplate State="Loading">
-        <ActivityIndicator IsRunning="True"/>
-    </StateTemplate>
-
-    <StateTemplate State="Loaded">
-        <Label Text="{Binding MyData}" />
-    </StateTemplate>
-
-    <StateTemplate State="Failed">
-        <Label Text="Failed to load :(" />
-        <Button Text="Retry" Command="{Binding LoadCommand}" />
-    </StateTemplate>
-    <!-- Much more states... -->
-</StateManager>
-```
+But state manager provides you to completely seperate y our states and uses **lazy load** for better performance.
 
 
 # Instructions
