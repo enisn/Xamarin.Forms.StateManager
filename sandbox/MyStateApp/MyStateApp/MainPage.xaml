@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:MyStateApp" xmlns:controls="clr-namespace:Xamarin.Forms.StateManager.Controls;assembly=Xamarin.Forms.StateManager"
+             xmlns:local="clr-namespace:MyStateApp" 
+             xmlns:sm="clr-namespace:Xamarin.Forms.StateManager.Controls;assembly=Xamarin.Forms.StateManager"
              mc:Ignorable="d"
              BackgroundColor="WhiteSmoke"
              x:Class="MyStateApp.MainPage">
@@ -13,31 +14,30 @@
 
     <StackLayout VerticalOptions="CenterAndExpand" Padding="25">
         <Button Text="Reload" Command="{Binding LoadCommand}" HorizontalOptions="Center" Margin="50"/>
-        <!-- Place new controls here -->
         <Frame CornerRadius="20" HasShadow="True">
-            <controls:StateManager State="{Binding CurrentState}">
+            <sm:StateManager State="{Binding CurrentState}">
 
-                <controls:StateTemplate State="Loading">
+                <sm:StateTemplate State="Loading">
                     <DataTemplate>
                         <ActivityIndicator IsRunning="True"/>
                     </DataTemplate>
-                </controls:StateTemplate>
+                </sm:StateTemplate>
 
-                <controls:StateTemplate State="Loaded">
+                <sm:StateTemplate State="Loaded">
                     <DataTemplate>
                         <Label Text="{Binding Content}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
                     </DataTemplate>
-                </controls:StateTemplate>
+                </sm:StateTemplate>
                 
-                <controls:StateTemplate State="Failed">
+                <sm:StateTemplate State="Failed">
                     <DataTemplate>
                         <StackLayout>
                             <Label Text="Failed to load :(" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
                             <Button Text="Retry" Command="{Binding LoadCommand}"/>
                         </StackLayout>
                     </DataTemplate>
-                </controls:StateTemplate>
-            </controls:StateManager>
+                </sm:StateTemplate>
+            </sm:StateManager>
         </Frame>
     </StackLayout>
 

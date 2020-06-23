@@ -17,7 +17,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStateApp.iOS", "sandbox\M
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{36F0CA83-A9FA-4900-86ED-63E8B33E6143}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.StateManager.Tests", "tests\Xamarin.Forms.StateManager.Tests\Xamarin.Forms.StateManager.Tests.csproj", "{06F99F15-E74D-4B69-9BC6-BA67539A18D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.StateManager.Tests", "tests\Xamarin.Forms.StateManager.Tests\Xamarin.Forms.StateManager.Tests.csproj", "{06F99F15-E74D-4B69-9BC6-BA67539A18D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9246B9A-AF2E-4F40-B101-14008FB65448}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
