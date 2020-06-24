@@ -1,6 +1,9 @@
 # Xamarin.Forms.StateManager
 A simple & light UI state manager for Xamarin Forms.
 
+![Nuget](https://img.shields.io/nuget/v/Xamarin.Forms.StateManager?logo=nuget&style=flat-square)
+![CodeFactor](https://www.codefactor.io/repository/github/enisn/xamarin.forms.statemanager/badge/master)
+
 ## Why?
 ### Performance
 
