@@ -8,7 +8,7 @@ A simple & light UI state manager for Xamarin Forms.
 ### Performance
 
 Normally, states can be managed via binding `IsVisible` property of Views Controls. But when you use `IsVisible` property, that object will be initilized and allocated lots of memory on ram and it makes latency when openning page.
-This StataManager uses **DataTemplate** instead of initializing all components. Only views related to the current state will be initialized and when statet has changed, they will be removed and next state elements will be placed at UI.
+This StateManager uses **DataTemplate** instead of initializing all components. Only views related to the current state will be initialized and when state has changed, they will be removed and next state elements will be placed at UI.
 
 ### Ease of use
 
@@ -21,7 +21,7 @@ On the situation below, both of component will be initialized at the beginning:
 <Label Text="{Binding MyData}" IsVisible="{Binding IsBusy, Converter={StaticResource BoolInverter}}" />
 ```
 
-But state manager provides you to completely seperate y our states and uses **lazy load** for better performance.
+But state manager provides you to completely seperate your states and it uses **lazy load** for better performance.
 
 
 # Instructions
